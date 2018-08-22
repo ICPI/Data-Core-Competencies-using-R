@@ -183,28 +183,6 @@ count(txt2, OperatingUnit, wt = FY2018Q2, sort = TRUE)
 count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE)
 count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE) %>% print(n = Inf) 
 
-#another useful function we can use is filter() which allows us to look at a specific subset
-# for instance, we may only be interested in Westeros
-txt2 %>% 
-  filter(OperatingUnit == "Westeros") %>% 
-  count(Region, OperatingUnit, PSNU, SNU1, sort = TRUE)
-
-#most of our work involves trying to aggregate or roll things up, similar to pivot tables
-# let's try to look at our SNU1 level of TX_NEW results from FY2017
-# We can use the summarise commands to aggregate our data
-  txt2 %>% 
-    summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
-#this give us a single line for the whole country and all indicators; let's filter
-  txt2 %>% 
-    filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
-    summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
-#that's better but we want to look at the APR results across SNUs, so we need to use a group_by command (which should follow by ungroup so we don't perform any other calculations across this group)
-  txt2 %>% 
-    filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
-    group_by(OperatingUnit, SNU1) %>% 
-    summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE )) %>% 
-    ungroup()
-
 
 #-------------------------------------------------------
 
@@ -223,18 +201,31 @@ txt2 %>%
 sorted <- arrange (txt2, PSNU)
 select(sorted, PSNU)   # Doesn't display all rows
 View(select(sorted, PSNU))   # Using 'View" shows all rows
-View(count(sorted, PSNU))
+
+#things stsart to get messy when we nest function within function
+# we have been using pipes (%>%) through out, but let's clarify what they are
+#in this example below, there are 3 functions nested within each which makes it really hard to decipher
+View(count(arrange (txt2, PSNU), PSNU)) 
+#instead, what we can do is to pipe the data frames produced through each function
+txt2 %>% 
+  arrange(PSNU) %>% 
+  count(PSNU, sort = TRUE) %>%
+  print(n = Inf)
 
 # Sorting in descending order
-sorted2 <- arrange(txt2, desc(PSNU))
-View(select(sorted2, PSNU))
-View(count(sorted2, PSNU)) # doesn't obey the sort
+txt2 %>% 
+  count(PSNU) %>%
+  arrange(desc(PSNU)) %>% 
+  print(n = Inf)
 
 
 # Sorting multiple variables
-sorted3 <- arrange(txt2, PSNU, indicator)
-View(select(sorted3, PSNU, indicator))
-View(count(sorted3, PSNU, indicator))
+sorted3 <- txt2 %>% 
+  arrange(PSNU, indicator) 
+txt2 %>%
+  count(PSNU, indicator, sort = TRUE) %>% 
+  arrange(PSNU, indicator) %>%
+
 
 #-------------------------------------------------------
 
@@ -304,6 +295,23 @@ View (count(hts5, PSNU, indicator, standardizedDisaggregate, FY2017APR))
 
 
 
+# Summarizing Data --------------------------------------------------------
+
+#most of our work involves trying to aggregate or roll things up, similar to pivot tables
+# let's try to look at our SNU1 level of TX_NEW results from FY2017
+# We can use the summarise commands to aggregate our data
+txt2 %>% 
+  summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
+#this give us a single line for the whole country and all indicators; let's filter
+txt2 %>% 
+  filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
+  summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
+#that's better but we want to look at the APR results across SNUs, so we need to use a group_by command (which should follow by ungroup so we don't perform any other calculations across this group)
+txt2 %>% 
+  filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
+  group_by(OperatingUnit, SNU1) %>% 
+  summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE )) %>% 
+  ungroup()
 
 
 #-------------------------------------------------------
