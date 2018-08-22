@@ -42,12 +42,12 @@ library(tidyverse)
 # to get a full file path on your PC, hold SHIFT + Right Click which will give you the option to copy as path
 # Navigate to the ex1_data.txt file in the RawData folder and copy the path into the line below
 filepath <- "~/Desktop/R-Training/RawData/ex1_data.txt"
-txt <- read_tsv(filepath, col_names = TRUE)
+txt <- read_tsv(filepath)
 
 
 # Relative folder paths
 # Subfolder in project - dependent on setting the working directory properly  
-txt <- read_tsv("./RawData/ex1_data.txt", col_names = TRUE)
+txt <- read_tsv("./RawData/ex1_data.txt")
 
 # To see the types of the variables in the dataset, use spec()
 spec(txt)
