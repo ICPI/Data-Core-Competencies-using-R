@@ -21,6 +21,14 @@
     library(tidyverse)
 
 
+# R Studio Projects -------------------------------------------------------
+
+# R Studio projects are a great feature which allow you to have one dedicated session for each project you are working on
+# One of the great features is that it sets the working directory to the project folder automatically so others can easily
+# work off the same file without having to adjust their file paths (and everything is step up the exact same).
+# To start an R Project that already exists, double click on the .Rproj file in the folder.
+# If you have not opened this session via the .Rproj file, you will need to so that all the file paths work the same on your machine.
+
 
 # Importing TXT datafile using readr --------------------------------------
 
