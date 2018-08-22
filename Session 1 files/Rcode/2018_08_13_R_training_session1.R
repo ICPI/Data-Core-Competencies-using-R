@@ -166,8 +166,7 @@ glimpse(txt2) #combines view of names, specs, and the first few rows of data
     slice(1:20)
 
 # The dplyr function, 'select' allows for specifiying any number of variables to retain and view.
-select(txt2, OperatingUnit, PSNU, Region)
-View (select(txt2, OperatingUnit, PSNU, Region))
+select(txt2, OperatingUnit, PSNU, Region) %>% print(n = Inf)
 
 # To retain variables that start with or end with a certain string pattern. 
 select(txt2, ends_with("Q2"))
