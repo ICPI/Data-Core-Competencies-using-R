@@ -68,7 +68,7 @@ spec(txt)
 
 
 # Add customized variable types for accuracy
-txt2 <- read_tsv(file = "./RawData/ex1_data.txt", 
+txt2 <- read_tsv(file = "RawData/ex1_data.txt", 
                     col_types = cols(MechanismID        = "c",
                                      AgeAsEntered       = "c",            
                                      AgeFine            = "c",     
@@ -118,7 +118,7 @@ csv <- read_csv("C:/Users/lqa9/Desktop/R/ICPI R training/Reboot/R_training_redux
 
 
 # Relative folder paths
-csv <- read_csv ("./RawData/ex1_data.csv")
+csv <- read_csv ("RawData/ex1_data.csv")
 # To see the character types of the variables in the dataset, use spec()
 spec(csv)
 
@@ -135,7 +135,7 @@ spec(csv)
 
 
 # Add customized variable types for accuracy
-csv2 <- read_csv (file = "./RawData/ex1_data.csv", 
+csv2 <- read_csv (file = "RawData/ex1_data.csv", 
                     col_types = cols(MechanismID        = "c",
                                      AgeAsEntered       = "c",            
                                      AgeFine            = "c",     
@@ -314,7 +314,7 @@ View (count(hts5, PSNU, indicator, standardizedDisaggregate, FY2017APR))
 #--------------------------------------------------------
   # Removing values with 'NA' 
     # reading in the dataset with NA values in Sex
-na_df <- read_tsv(file="./RawData/na_data.txt", 
+na_df <- read_tsv(file="RawData/na_data.txt", 
                   col_types = cols(MechanismID        = "c",
                                      AgeAsEntered       = "c",            
                                      AgeFine            = "c",     
@@ -359,14 +359,14 @@ count(na_df1, Sex)
 #--------------------------------------------------------
 
 
-write_tsv(hts4, path = "./Output/exported_data.txt")
+write_tsv(hts4, path = "Output/exported_data.txt")
 
-write_csv(hts4, path = "./Output/exported_data.csv")
+write_csv(hts4, path = "Output/exported_data.csv")
 
 
 # # exporting to Excel
 library(xlsx)
-write.xlsx(mcad_df, "./RawData/exp_Excel_data.xlsx")
+write.xlsx(mcad_df, "RawData/exp_Excel_data.xlsx")
 #-------------------------------------------------------
 
 
