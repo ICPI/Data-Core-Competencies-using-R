@@ -36,7 +36,7 @@ library(tidyverse)
 
 # Importing .txt file using 'readr' package
 # install.packages("readr")
-# library(readr)
+# library(readr) #this is included in the tidyvese package so it doesn't need to loaded separately
 
 # Full path to data file
 txt <- read_tsv("C:/Users/lqa9/Desktop/R/ICPI R training/Reboot/R_training_reduxV2/RawData/ex1_data.txt", col_names = TRUE)
