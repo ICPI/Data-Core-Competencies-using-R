@@ -14,7 +14,10 @@
 #-------------------------------------------------------
 # ---- (0) Loading Tidyverse Package (Slide )----- 
 #--------------------------------------------------------
+
+#R is built of packages that have to be independently installed the first time you use them, install.packages()
 install.packages("tidyverse")
+#every time you open R, you will need to "open" or load your packages, using library()
 library(tidyverse)
 
 #---------------------------------------------------------
