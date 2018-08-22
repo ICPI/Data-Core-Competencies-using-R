@@ -152,6 +152,7 @@ MSD <- read_tsv(data_url)
 View(txt2)  # to see entire dataset
 names(txt2) # to see variable names
 spec(txt2) 
+glimpse(txt2) #combines view of names, specs, and the first few rows of data
 
   # [ ] lets you index your data frame.
   # The first element is for rows and second for columns
