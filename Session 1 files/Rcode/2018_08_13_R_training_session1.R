@@ -172,11 +172,17 @@ select(txt2, OperatingUnit, PSNU, Region) %>% print(n = Inf)
 select(txt2, ends_with("Q2"))
 select(txt2, starts_with("FY2017"))
 
-# The Dplyr function, distinct and 'count' shows a breakdown of a column's unique values. 
-txt2 %>% distinct(OperatingUnit)
+# The dplyr function, distinct and 'count' shows a breakdown of a column's unique values. 
+distinct(txt2, OperatingUnit)
 count(txt2, OperatingUnit)
-count(txt2, Region, OperatingUnit, PSNU, SNU1)
-View (count(txt2, Region, OperatingUnit, PSNU, SNU1))
+#option to allows you to easily sort
+count(txt2, OperatingUnit, sort = TRUE) 
+#by adding in the weight, allows for easy aggregation
+count(txt2, OperatingUnit, wt = FY2018Q2, sort = TRUE)
+#when view is longer than 10 rows, you can change the print row length
+count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE)
+count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE) %>% print(n = Inf) 
+
 
 count(txt2, OperatingUnit, SNU1)
 
