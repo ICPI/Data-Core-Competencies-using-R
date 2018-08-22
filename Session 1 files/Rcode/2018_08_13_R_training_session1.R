@@ -38,6 +38,11 @@ library(tidyverse)
 # install.packages("readr")
 # library(readr) #this is included in the tidyvese package so it doesn't need to loaded separately
 
+
+# Getting HELP  
+?read_csv
+help("read_csv")
+
 # Full path to data file
 # to get a full file path on your PC, hold SHIFT + Right Click which will give you the option to copy as path
 # Navigate to the ex1_data.txt file in the RawData folder and copy the path into the line below
@@ -136,9 +141,6 @@ MSD <- read_tsv(data_url)
   rm(data_url)
 
 
-# Getting HELP  
-?read_csv
-help("read_csv")
 
 #---------------------------------------------------------
 
