@@ -39,7 +39,10 @@ library(tidyverse)
 # library(readr) #this is included in the tidyvese package so it doesn't need to loaded separately
 
 # Full path to data file
-txt <- read_tsv("C:/Users/lqa9/Desktop/R/ICPI R training/Reboot/R_training_reduxV2/RawData/ex1_data.txt", col_names = TRUE)
+# to get a full file path on your PC, hold SHIFT + Right Click which will give you the option to copy as path
+# Navigate to the ex1_data.txt file in the RawData folder and copy the path into the line below
+filepath <- "~/Desktop/R-Training/RawData/ex1_data.txt"
+txt <- read_tsv(filepath, col_names = TRUE)
 
 
 # Relative folder paths
