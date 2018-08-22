@@ -129,13 +129,11 @@ csv2 <- read_csv (file = "RawData/ex1_data.csv",
                                      FY2018Q2           = "d",
                                      FY2018_TARGETS     = "d",
                                      FY2019_TARGETS     = "d"))
-spec(csv2)
 
-
-
-
-# # Pulling dataset from GitHub
-MSD <- read_tsv("https://raw.githubusercontent.com/ICPI/TrainingDataset/master/Output/ICPI_MER_Structured_TRAINING_Dataset_PSNU_IM_FY17-18_20180515_v1_1.txt")
+# Pulling dataset from online source
+data_url <- "https://raw.githubusercontent.com/ICPI/TrainingDataset/master/Output/ICPI_MER_Structured_TRAINING_Dataset_PSNU_IM_FY17-18_20180515_v1_1.txt"
+MSD <- read_tsv(data_url)
+  rm(data_url)
 
 
 # Getting HELP  
