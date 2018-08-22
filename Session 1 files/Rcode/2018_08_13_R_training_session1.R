@@ -68,7 +68,7 @@ spec(txt)
 
 
 # Add customized variable types for accuracy
-txt2 <- read_tsv(file = "RawData/ex1_data.txt", 
+txt2 <- read_tsv(file = "Session 1 files/RawData/ex1_data.txt", 
                     col_types = cols(MechanismID        = "c",
                                      AgeAsEntered       = "c",            
                                      AgeFine            = "c",     
