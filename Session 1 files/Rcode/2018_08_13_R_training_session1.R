@@ -108,32 +108,6 @@ class(txt2$indicator)
 # reads in csv file named "ex1_data.csv", and stores dataset as an object named 'csv_df' 
 # object <- function(relative file path/filename.csv)
 
-
-# Importing .txt file using 'readr' package
-# install.packages("readr")
-# library(readr)
-
-# Full path to data file
-csv <- read_csv("C:/Users/lqa9/Desktop/R/ICPI R training/Reboot/R_training_reduxV2/RawData/ex1_data.csv")
-
-
-# Relative folder paths
-csv <- read_csv ("RawData/ex1_data.csv")
-# To see the character types of the variables in the dataset, use spec()
-spec(csv)
-
-# Specifying the type of each variable being pulled in
-#             "c" = character 
-#             "i" = integer 
-#             "n" = number 
-#             "d" = double (includes decimals)
-#             "l" = logical 
-#             "D" = date 
-#             "T" = date time 
-#             "t" = time 
-#             "?" = guess
-
-
 # Add customized variable types for accuracy
 csv2 <- read_csv (file = "RawData/ex1_data.csv", 
                     col_types = cols(MechanismID        = "c",
