@@ -54,6 +54,8 @@ spec(txt)
 
 
 # Specifying the type of each variable being pulled in
+# This is really important since R reads in the first 1000 lines and then guesses what the column type is
+# If you don't have any targets data in the first 1000 lines for example, it will be read in as string
 #             "c" = character 
 #             "i" = integer 
 #             "n" = number 
