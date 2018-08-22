@@ -186,11 +186,21 @@ count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE) %>% print(n = Inf)
 
 count(txt2, OperatingUnit, SNU1)
 
-# Use group_by with summarise to simulate a pivot table (NEEDS REVIEW)
-View (group_by(txt2, OperatingUnit, SNU1) %>%
-    summarise(sum(FY2017APR, na.rm = TRUE ))) %>%
-    ungroup
-  
+#most of our work involves trying to aggregate or roll things up, similar to pivot tables
+# let's try to look at our SNU1 level of TX_NEW results from FY2017
+# We can use the summarise commands to aggregate our data
+  txt2 %>% 
+    summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
+#this give us a single line for the whole country and all indicators; let's filter
+  txt2 %>% 
+    filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
+    summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
+#that's better but we want to look at the APR results across SNUs, so we need to use a group_by command (which should follow by ungroup so we don't perform any other calculations across this group)
+  txt2 %>% 
+    filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
+    group_by(OperatingUnit, SNU1) %>% 
+    summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE )) %>% 
+    ungroup()
 
 
 #-------------------------------------------------------
