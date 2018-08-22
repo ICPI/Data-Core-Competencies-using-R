@@ -281,7 +281,7 @@
 
   # Removing values with 'NA' 
     # reading in the dataset with NA values in Sex
-      na_df <- read_tsv(file="RawData/na_data.txt", 
+      na_df <- read_tsv(file="Session 1 files/RawData/na_data.txt", 
                   col_types = cols(MechanismID          = "c",
                                      AgeAsEntered       = "c",            
                                      AgeFine            = "c",     
@@ -322,11 +322,11 @@
 #Ref: https://www.statmethods.net/input/exportingdata.html
   
   #exporting a tsv
-    write_tsv(hts4, path = "Output/exported_data.txt")
+    write_tsv(hts4, path = "Session 1 files/Output/exported_data.txt")
   #exporting a csv
-    write_csv(hts4, path = "Output/exported_data.csv")
+    write_csv(hts4, path = "Session 1 files/Output/exported_data.csv")
 
 
   #exporting as an Excel file
     library(xlsx)
-    write.xlsx(mcad_df, "RawData/exp_Excel_data.xlsx")
+    write.xlsx(mcad_df, "Session 1 files/RawData/exp_Excel_data.xlsx")
