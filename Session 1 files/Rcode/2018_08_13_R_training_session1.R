@@ -183,8 +183,11 @@ count(txt2, OperatingUnit, wt = FY2018Q2, sort = TRUE)
 count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE)
 count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE) %>% print(n = Inf) 
 
-
-count(txt2, OperatingUnit, SNU1)
+#another useful function we can use is filter() which allows us to look at a specific subset
+# for instance, we may only be interested in Westeros
+txt2 %>% 
+  filter(OperatingUnit == "Westeros") %>% 
+  count(Region, OperatingUnit, PSNU, SNU1, sort = TRUE)
 
 #most of our work involves trying to aggregate or roll things up, similar to pivot tables
 # let's try to look at our SNU1 level of TX_NEW results from FY2017
