@@ -154,13 +154,16 @@ names(txt2) # to see variable names
 spec(txt2) 
 glimpse(txt2) #combines view of names, specs, and the first few rows of data
 
-  # [ ] lets you index your data frame.
-  # The first element is for rows and second for columns
-  # leaving any element blank selects all (rows or columns) 
-View(txt2[1:20, ]) # selects rows 1 to 20 and all columns
-View(txt2[1:20, 1:3]) # selects rows 1 to 20 and columns 1 to 3
-
-
+  # View() allows you to see the entire dataset as we saw above
+  # you can narrow down that view by taking a "slice" of a number of rows and/or selecting certain columns
+  #look a the first 20 rows  
+  txt2 %>% 
+    slice(1:20) %>% 
+    View() 
+  # look at the first 3 columns and first 20 columns
+  txt2 %>% 
+    select(Region:OperatingUnit) %>% 
+    slice(1:20)
 
 # The dplyr function, 'select' allows for specifiying any number of variables to retain and view.
 select(txt2, OperatingUnit, PSNU, Region)
