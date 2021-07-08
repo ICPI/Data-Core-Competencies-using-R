@@ -1,0 +1,340 @@
+
+#___________________________________________________________________________
+#~~~~~~~~~~~      _____   _             _       _                ~~~~~~~~~~~~~~~
+#~~~~~~~~~~~     |  __ \ | |           (_)     (_)               ~~~~~~~~~~~~~~~ 
+#~~~~~~~~~~~     | |__) || |_ _ __ __ _ _ _ __  _ _ __   __ _    ~~~~~~~~~~~~~~~
+#~~~~~~~~~~~     |  _  / | __| '__/ _` | | '_ \| | '_ \ / _` |   ~~~~~~~~~~~~~~~
+#~~~~~~~~~~~     | | \ \ | |_| | | (_| | | | | | | | | | (_| |   ~~~~~~~~~~~~~~~
+#~~~~~~~~~~~     |_|  \_\ \__|_|  \__,_|_|_| |_|_|_| |_|\__, |   ~~~~~~~~~~~~~~~
+#~~~~~~~~~~~           ______                            __/ |   ~~~~~~~~~~~~~~~
+#~~~~~~~~~~~          |______|                           \___/   ~~~~~~~~~~~~~~~
+#___________________________________________________________________________
+
+
+
+# Loading Tidyverse Package -----------------------------------------------
+
+
+  #R is built of packages that have to be independently installed the first time you use them, install.packages()
+    install.packages("tidyverse")
+  #every time you open R, you will need to "open" or load your packages, using library()
+    library(tidyverse)
+
+
+# R Studio Projects -------------------------------------------------------
+
+# R Studio projects are a great feature which allow you to have one dedicated session for each project you are working on
+# One of the great features is that it sets the working directory to the project folder automatically so others can easily
+# work off the same file without having to adjust their file paths (and everything is step up the exact same).
+# To start an R Project that already exists, double click on the .Rproj file in the folder.
+# If you have not opened this session via the .Rproj file, you will need to so that all the file paths work the same on your machine.
+
+
+# Importing TXT datafile using readr --------------------------------------
+
+
+  # function used is 'read_tsv' & its arguments (file path and/or name), 
+  # reads in txt file named "ex1_data.txt", and stores dataset as an object named 'txt' 
+  # object <- function(relative file path/filename.txt)
+  
+  
+  # Importing .txt file using 'readr' package
+  # install.packages("readr")
+  # library(readr) #this is included in the tidyvese package so it doesn't need to loaded separately
+
+
+  # Getting HELP  
+    ?read_csv
+    help("read_csv")
+  
+  # Full path to data file
+  # to get a full file path on your PC, hold SHIFT + Right Click which will give you the option to copy as path
+  # Navigate to the ex1_data.txt file in the RawData folder and copy the path into the line below
+    filepath <- "~/Desktop/R-Training/RawData/ex1_data.txt"
+    txt <- read_tsv(filepath)
+  
+  
+  # Relative folder paths
+  # Subfolder in project - dependent on setting the working directory properly  
+    txt <- read_tsv("Session 1 files/RawData/ex1_data.txt")
+  
+  # To see the types of the variables in the dataset, use spec()
+    spec(txt)
+    
+  
+  # Specifying the type of each variable being pulled in
+  # This is really important since R reads in the first 1000 lines and then guesses what the column type is
+  # If you don't have any targets data in the first 1000 lines for example, it will be read in as string
+  #             "c" = character 
+  #             "i" = integer 
+  #             "n" = number 
+  #             "d" = double (includes decimals)
+  #             "l" = logical 
+  #             "D" = date 
+  #             "T" = date time 
+  #             "t" = time 
+  #             "?" = guess
+  
+  
+  # Add customized variable types for accuracy
+    txt2 <- read_tsv(file = "Session 1 files/RawData/ex1_data.txt", 
+                      col_types = cols(MechanismID        = "c",
+                                       AgeAsEntered       = "c",            
+                                       AgeFine            = "c",     
+                                       AgeSemiFine        = "c",    
+                                       AgeCoarse          = "c",      
+                                       Sex                = "c",     
+                                       resultStatus       = "c",     
+                                       otherDisaggregate  = "c",     
+                                       coarseDisaggregate = "c",     
+                                       FY2017_TARGETS     = "d",
+                                       FY2017Q1           = "d",      
+                                       FY2017Q2           = "d",      
+                                       FY2017Q3           = "d",      
+                                       FY2017Q4           = "d",      
+                                       FY2017APR          = "d",
+                                       FY2018Q1           = "d",
+                                       FY2018Q2           = "d",
+                                       FY2018_TARGETS     = "d",
+                                       FY2019_TARGETS     = "d"))
+  
+  
+  # Check your data classes for all variables
+    spec(txt2)
+  
+  # checking a single variable class
+    class(txt2$indicator)
+
+
+
+  #csvs import the same way as tsv
+  # Add customized variable types for accuracy
+    csv2 <- read_csv (file = "RawData/ex1_data.csv", 
+                        col_types = cols(MechanismID        = "c",
+                                         AgeAsEntered       = "c",            
+                                         AgeFine            = "c",     
+                                         AgeSemiFine        = "c",    
+                                         AgeCoarse          = "c",      
+                                         Sex                = "c",     
+                                         resultStatus       = "c",     
+                                         otherDisaggregate  = "c",     
+                                         coarseDisaggregate = "c",     
+                                         FY2017_TARGETS     = "d",
+                                         FY2017Q1           = "d",      
+                                         FY2017Q2           = "d",      
+                                         FY2017Q3           = "d",      
+                                         FY2017Q4           = "d",      
+                                         FY2017APR          = "d",
+                                         FY2018Q1           = "d",
+                                         FY2018Q2           = "d",
+                                         FY2018_TARGETS     = "d",
+                                         FY2019_TARGETS     = "d"))
+    
+  # Pulling dataset from online source also works the same
+   data_url <- "https://raw.githubusercontent.com/ICPI/TrainingDataset/master/Output/ICPI_MER_Structured_TRAINING_Dataset_PSNU_IM_FY17-18_20180515_v1_1.txt"
+   MSD <- read_tsv(data_url)
+    rm(data_url)
+
+
+
+# Ways to View your dataset(s) --------------------------------------------
+
+
+  #different ways to view the dataset
+    View(txt2)  # to see entire dataset
+    names(txt2) # to see variable names
+    spec(txt2) 
+    glimpse(txt2) #combines view of names, specs, and the first few rows of data
+
+  # View() allows you to see the entire dataset as we saw above
+  # you can narrow down that view by taking a "slice" of a number of rows and/or selecting certain columns
+  #look a the first 20 rows  
+    txt2 %>% 
+      slice(1:20) %>% 
+      View() 
+  # look at the first 3 columns and first 20 columns
+    txt2 %>% 
+      select(Region:OperatingUnit) %>% 
+      slice(1:20)
+
+  # The dplyr function, 'select' allows for specifiying any number of variables to retain and view.
+    select(txt2, OperatingUnit, PSNU, Region) %>% print(n = Inf)
+
+  # To retain variables that start with or end with a certain string pattern. 
+    select(txt2, ends_with("Q2"))
+    select(txt2, starts_with("FY2017"))
+
+  # The dplyr function, distinct and 'count' shows a breakdown of a column's unique values. 
+    distinct(txt2, OperatingUnit)
+    count(txt2, OperatingUnit)
+    #option to allows you to easily sort
+    count(txt2, OperatingUnit, sort = TRUE) 
+    #by adding in the weight, allows for easy aggregation
+    count(txt2, OperatingUnit, wt = FY2018Q2, sort = TRUE)
+    #when view is longer than 10 rows, you can change the print row length
+    count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE)
+    count(txt2, Region, OperatingUnit, PSNU, SNU1, sort = TRUE) %>% print(n = Inf) 
+
+
+
+# Sorting your dataset ----------------------------------------------------
+
+  # Sort variables using 'arrange' function from dplyr
+  
+  # Sorting in ascending order (default) 
+    sorted <- arrange (txt2, PSNU)
+    select(sorted, PSNU)   # Doesn't display all rows
+    View(select(sorted, PSNU))   # Using 'View" shows all rows
+    
+  #things stsart to get messy when we nest function within function
+  # we have been using pipes (%>%) through out, but let's clarify what they are
+  #in this example below, there are 3 functions nested within each which makes it really hard to decipher
+    View(count(arrange (txt2, PSNU), PSNU)) 
+  #instead, what we can do is to pipe the data frames produced through each function
+    txt2 %>% 
+      arrange(PSNU) %>% 
+      count(PSNU, sort = TRUE) %>%
+      print(n = Inf)
+    
+  # Sorting in descending order
+    txt2 %>% 
+      count(PSNU) %>%
+      arrange(desc(PSNU)) %>% 
+      print(n = Inf)
+  
+  # Sorting multiple variables
+    sorted3 <- txt2 %>% 
+      arrange(PSNU, indicator) 
+    txt2 %>%
+      count(PSNU, indicator, sort = TRUE) %>% 
+      arrange(PSNU, indicator) %>%
+
+
+
+# Subsetting your data ----------------------------------------------------
+
+#Ref: https://www.statmethods.net/management/subset.html
+
+
+## Subsetting for Columns (select)
+  
+  # Use dplyr 'Select' function to subset by variable(s)
+    geo_df <- select(txt_df, OperatingUnit, SNU1, PSNU, FY2017APR)
+    names(geo_df)
+    View(geo_df)
+  
+  # Alternatively, to delete variables:
+    geo_df2 <- select(txt_df, -starts_with("FY2017"))
+    names(geo_df2)
+    View(geo_df2)
+  
+    geo_df3 <- select(txt_df, -Region, -CountryName)
+    names(geo_df3)
+    View(geo_df3)
+
+
+  ## Subsetting for Rows (filter)
+  
+  # filtering for one Indicator
+    hts <- filter(txt_df, indicator =="HTS_TST")
+  # Ways to see if this worked
+    select(hts, indicator)
+    View (select(hts, indicator))
+    View (count(hts, indicator))  
+  
+  # filter for one indicator, (uses logical operator Not Equal) 
+    hts2 <- filter(txt_df, indicator != "HTS_TST")
+    View (select (hts2, indicator))
+    View (count(hts2, indicator)) 
+    
+  
+  # filter for multiple indicators, (uses logical operator OR) 
+    hts3 <- filter(txt_df, indicator == "HTS_TST" | indicator == "TX_NEW")
+    View (select (hts3, indicator))
+    View (count(hts3, indicator)) 
+  
+  
+  # filter for multiple conditions, (uses logical operator AND) 
+    hts4 <- filter(txt2, indicator == "HTS_TST", FY2017APR > 100)
+    View (select (hts4, indicator, FY2017APR))
+    View (count(hts4, indicator, FY2017APR)) 
+  
+  
+  # filter for multiple conditions, (uses multiple operators and multiple conditions) 
+  # Filtering for HTS_TST and TX_NEW total numerator values and its PSNUs
+    hts5 <- filter(txt2, indicator == "HTS_TST" | indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator", FY2017APR > 100)
+    View (select (hts5, PSNU, indicator, standardizedDisaggregate, FY2017APR))
+    View (count(hts5, PSNU, indicator, standardizedDisaggregate, FY2017APR)) 
+
+# Summarizing Data --------------------------------------------------------
+
+  #most of our work involves trying to aggregate or roll things up, similar to pivot tables
+  # let's try to look at our SNU1 level of TX_NEW results from FY2017
+  # We can use the summarise commands to aggregate our data
+    txt2 %>% 
+      summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
+  #this give us a single line for the whole country and all indicators; let's filter
+    txt2 %>% 
+      filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
+      summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE ))
+  #that's better but we want to look at the APR results across SNUs, so we need to use a group_by command (which should follow by ungroup so we don't perform any other calculations across this group)
+    txt2 %>% 
+      filter(indicator == "TX_NEW", standardizedDisaggregate == "Total Numerator") %>% 
+      group_by(OperatingUnit, SNU1) %>% 
+      summarise(FY2017APR = sum(FY2017APR, na.rm = TRUE )) %>% 
+      ungroup()
+
+
+# Cleaning your data ------------------------------------------------------
+
+  # Removing values with 'NA' 
+    # reading in the dataset with NA values in Sex
+      na_df <- read_tsv(file="Session 1 files/RawData/na_data.txt", 
+                  col_types = cols(MechanismID          = "c",
+                                     AgeAsEntered       = "c",            
+                                     AgeFine            = "c",     
+                                     AgeSemiFine        = "c",    
+                                     AgeCoarse          = "c",      
+                                     Sex                = "c",     
+                                     resultStatus       = "c",     
+                                     otherDisaggregate  = "c",     
+                                     coarseDisaggregate = "c",     
+                                     FY2017_TARGETS     = "d",
+                                     FY2017Q1           = "d",      
+                                     FY2017Q2           = "d",      
+                                     FY2017Q3           = "d",      
+                                     FY2017Q4           = "d",      
+                                     FY2017APR          = "d",
+                                     FY2018Q1           = "d",
+                                     FY2018Q2           = "d",
+                                     FY2018_TARGETS     = "d"))
+
+
+    # Checking the data 
+    count(na_df, Sex)
+    
+  
+  # Removing N/A or other undesireable values and convert to 
+    # True missing, or blank ""
+    na_df1 <- mutate(na_df, Sex = if_else(Sex == "N/A", "", Sex))  #converts to blanks
+    count(na_df1, Sex)
+  
+  # when running models, true <NA> is treated as "missing"
+  # while blank "" is treated as another category for the variable
+  # Numeric variables will not accept "", but will have true <NA> only
+
+
+
+# Exporting your data -----------------------------------------------------
+
+#Ref: https://www.statmethods.net/input/exportingdata.html
+  
+  #exporting a tsv
+    write_tsv(hts4, path = "Session 1 files/Output/exported_data.txt")
+  #exporting a csv
+    write_csv(hts4, path = "Session 1 files/Output/exported_data.csv")
+
+
+  #exporting as an Excel file
+    library(xlsx)
+    write.xlsx(mcad_df, "Session 1 files/RawData/exp_Excel_data.xlsx")
